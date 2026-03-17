@@ -10,4 +10,9 @@ class AppTest {
     void addShouldReturnSum() {
         assertEquals(5, App.add(2, 3));
     }
+
+    @Test
+    void shouldFailToSum() {
+        assertEquals(4, App.add(2, 3));
+    }
 }
