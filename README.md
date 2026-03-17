@@ -13,5 +13,3 @@ Tiny Java project scaffolded with Maven Wrapper.
 
 ## Run app
 java -jar target/tiny-java-app-1.0.0-SNAPSHOT.jar
-
-touch 
