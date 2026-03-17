@@ -11,8 +11,8 @@ class AppTest {
         assertEquals(5, App.add(2, 3));
     }
 
-    @Test
+    /*@Test
     void shouldFailToSum() {
         assertEquals(4, App.add(2, 3));
-    }
+    }*/
 }
