@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e
+
+BASE_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+WRAPPER_DIR="$BASE_DIR/.mvn/wrapper"
+WRAPPER_JAR="$WRAPPER_DIR/maven-wrapper.jar"
+WRAPPER_PROPERTIES="$WRAPPER_DIR/maven-wrapper.properties"
+
+if [ ! -f "$WRAPPER_PROPERTIES" ]; then
+  echo "Cannot find $WRAPPER_PROPERTIES"
+  exit 1
+fi
+
+if [ ! -f "$WRAPPER_JAR" ]; then
+  echo "maven-wrapper.jar not found, downloading..."
+  mkdir -p "$WRAPPER_DIR"
+
+  WRAPPER_URL=$(grep '^wrapperUrl=' "$WRAPPER_PROPERTIES" | cut -d'=' -f2-)
+  if [ -z "$WRAPPER_URL" ]; then
+    WRAPPER_URL="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.2/maven-wrapper-3.3.2.jar"
+  fi
+
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$WRAPPER_URL" -o "$WRAPPER_JAR"
+  elif command -v wget >/dev/null 2>&1; then
+    wget -q "$WRAPPER_URL" -O "$WRAPPER_JAR"
+  else
+    echo "Error: neither curl nor wget is available to download Maven Wrapper JAR"
+    exit 1
+  fi
+fi
+
+exec java -classpath "$WRAPPER_JAR" org.apache.maven.wrapper.MavenWrapperMain "$@"
